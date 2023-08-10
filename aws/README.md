@@ -1,6 +1,7 @@
 ## Route53
 
-Create Kubernetes Secret with AWS Secret Access Key.
+- Create Kubernetes Secret with AWS Secret Access Key.
+
 ```bash
 # CLI Create
 kubectl create secret generic route53-credentials-secret \
@@ -8,5 +9,5 @@ kubectl create secret generic route53-credentials-secret \
 --namespace=[YOUR-CERT-MANAGER-NAMESPACE]
 ```
 
-And sequentially, the clusterissuer certificate finally generates ingress.
-The route53 credentials secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
+- And sequentially, the clusterissuer certificate finally generates ingress.
+- The route53 credentials secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
