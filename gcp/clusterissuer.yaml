@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: clouddns-issuer
+spec:
+  acme:
+    email: <your-email>
+    server: https://acme-v02.api.letsencrypt.org/directory # production(if use staging https://acme-staging-v02.api.letsencrypt.org/directory)
+    privateKeySecretRef:
+      name: clouddns-account-key
+    solvers:
+    - dns01:
+        cloudDNS:
+          project: <your-project>
+          serviceAccountSecretRef:
+            name: clouddns-credentials-secret
+            key: key.json

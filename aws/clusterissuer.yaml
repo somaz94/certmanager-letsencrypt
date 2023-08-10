@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: route53-issuer
+spec:
+  acme:
+    email: <your-email>
+    server: https://acme-v02.api.letsencrypt.org/directory # production(if use staging https://acme-staging-v02.api.letsencrypt.org/directory)
+    privateKeySecretRef:
+      name: route53-access-key
+    solvers:
+    - dns01:
+        route53:
+          region: <your-region> # Adjust this according to your AWS region
+          accessKeyID: <aws-access-key> # Avoid hardcoding credentials if possible
+          secretAccessKeySecretRef:
+            name: route53-credentials-secret # secret-name
+            key: secret-access-key
