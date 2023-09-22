@@ -3,7 +3,6 @@
 - Create Kubernetes Secret with AWS Secret Access Key.
 
 ```bash
-# CLI Create
 kubectl create secret generic route53-credentials-secret \
 --from-literal=secret-access-key=YOUR_AWS_SECRET_ACCESS_KEY
 --namespace=[YOUR-CERT-MANAGER-NAMESPACE]

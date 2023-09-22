@@ -4,7 +4,7 @@
 
 ```bash
 kubectl create secret generic clouddns-credentials-secret \
---from-file=key.json=/path/to/service-account-key.json \
+--from-file=key.json=/path/to/SERVICE_ACCOUNT_KEY.json \
 --namespace=[YOUR-CERT-MANAGER-NAMESPACE]
 ```
 
