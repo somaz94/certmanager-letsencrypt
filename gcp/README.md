@@ -5,8 +5,13 @@
 ```bash
 kubectl create secret generic clouddns-credentials-secret \
 --from-file=key.json=/path/to/SERVICE_ACCOUNT_KEY.json \
---namespace=[YOUR-CERT-MANAGER-NAMESPACE]
+--namespace=[CERT-MANAGER-NAMESPACE] > clouddns-credentials-secret.yaml
 ```
 
 - And sequentially, the clusterissuer certificate finally generates ingress.
 - The clouddns credentials secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
+
+```bash
+k apply -f clouddns-credentials-secret.yaml -n certmanager
+k apply -f clusterissuer.yaml  # No namespace
+```
