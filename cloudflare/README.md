@@ -1,6 +1,6 @@
 ## cloudflare
 
-- Create an Access Token after creating a CloudFlare account
+- Create a CloudFlare account
 - Create an API token after going to the "My Profile" section.
 - The API token permission is created by granting zone-zone(영역-영역) and read permission and zone-dns(영역-dns) permission to edit.
 - Create Kubernetes Secret with CloudFlare Token.
