@@ -15,3 +15,15 @@ kubectl create secret generic clouddns-credentials-secret \
 k apply -f clouddns-credentials-secret.yaml -n certmanager
 k apply -f clusterissuer.yaml  # No namespace
 ```
+
+- Finally, create the remaining resources.
+- Note that you should create the namespace of the application to be applied.
+
+```bash
+k apply -f certificate.yaml -n <application namespace>
+k apply -f ingress.yaml -n <application namespace>
+```
+
+
+## Reference
+- [Google](https://cert-manager.io/docs/configuration/acme/dns01/google/)
