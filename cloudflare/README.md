@@ -12,7 +12,7 @@ kubectl create secret generic cloudflare-api-token-secret --namespace cert-manag
 --namespace=[YOUR-CERT-MANAGER-NAMESPACE]
 ```
 
-- And sequentially, the clusterissuer certificate finally generates ingress.
+- And sequentially, the clusterissuer, certificate, and ingress are created.
 - The api token secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
 - The remaining certificates and ingress are created in the application namespace.
 
