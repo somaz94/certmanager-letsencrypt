@@ -27,4 +27,4 @@ k apply -f ingress.yaml -n <application namespace>
 <br/>
 
 ## Reference
-- [Google](https://cert-manager.io/docs/configuration/acme/dns01/google/)
+- [Google CloudDNS](https://cert-manager.io/docs/configuration/acme/dns01/google/)
