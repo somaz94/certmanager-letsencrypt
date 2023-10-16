@@ -41,3 +41,8 @@ Please refer to the [official certmanager documentation](https://cert-manager.io
 - [certmanager](https://github.com/cert-manager/cert-manager/releases)
 - [certmanager-issuer-setting](https://cert-manager.io/docs/configuration/acme/dns01/)
 
+<br/>
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
