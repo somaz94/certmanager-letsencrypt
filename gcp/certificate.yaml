@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: <app-name>-tls # use ingress secretName
   duration: 2160h # 90d(if use helm chart 2160h0m0s)
-  renewBefore: 360h # 15d(if use helm chart 360h0m0s)
+  renewBefore: 720h # 30d(if use helm chart 720h0m0s)
   commonName: your-domain.com
   dnsNames:
   - your-domain.com
