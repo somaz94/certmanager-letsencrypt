@@ -12,7 +12,7 @@ kubectl create secret generic clouddns-credentials-secret \
 - The clouddns credentials secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
 
 ```bash
-k apply -f clouddns-credentials-secret.yaml -n certmanager
+k apply -f clouddns-credentials-secret.yaml -n cert-manager
 k apply -f clusterissuer.yaml  # No namespace
 ```
 

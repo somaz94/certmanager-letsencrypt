@@ -16,7 +16,7 @@ kubectl create secret generic cloudflare-api-token-secret --namespace cert-manag
 - The api token secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
 
 ```bash
-k apply -f cloudflare-api-token-secret.yaml -n certmanager
+k apply -f cloudflare-api-token-secret.yaml -n cert-manager
 k apply -f clusterissuer.yaml  # No namespace
 ```
 
