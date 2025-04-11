@@ -7,9 +7,9 @@ This guide provides steps for installing certmanager and setting up various DNS 
 
 ### 1. Download and Install
 
-To fetch the latest version, consult the [official certmanager releases](https://github.com/cert-manager/cert-manager/releases) releases. For version v1.12.3, run the command:
+To fetch the latest version, consult the [official certmanager releases](https://github.com/cert-manager/cert-manager/releases) releases. For version v1.17.0, run the command:
 ```bash
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.3/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
 ```
 
 <br/>
