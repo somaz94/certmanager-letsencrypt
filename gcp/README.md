@@ -1,30 +1,41 @@
-## cloud-dns
+## Google Cloud DNS
 
-- Create Kubernetes Secret with GCP ServiceAccount
+<br/>
+
+### 1. Create Secret
+
+Create a Kubernetes Secret with your GCP Service Account key:
 
 ```bash
 kubectl create secret generic clouddns-credentials-secret \
---from-file=key.json=/path/to/SERVICE_ACCOUNT_KEY.json \
---namespace=[CERT-MANAGER-NAMESPACE] > clouddns-credentials-secret.yaml
+  --from-file=key.json=/path/to/SERVICE_ACCOUNT_KEY.json \
+  --namespace=cert-manager
 ```
 
-- And sequentially, the clusterissuer, certificate, and ingress are created.
-- The clouddns credentials secret is created in cert-manager namespace, and the Clusterissuer does not belong to namespace.
+<br/>
+
+### 2. Create ClusterIssuer
+
+The credentials secret is created in the `cert-manager` namespace. The ClusterIssuer is a cluster-scoped resource and does not belong to any namespace.
 
 ```bash
-k apply -f clouddns-credentials-secret.yaml -n cert-manager
-k apply -f clusterissuer.yaml  # No namespace
+kubectl apply -f clouddns-credentials-secret.yaml -n cert-manager
+kubectl apply -f clusterissuer.yaml
 ```
 
-- Finally, create the remaining resources.
-- Note that you should create the namespace of the application to be applied.
+<br/>
+
+### 3. Create Certificate and Ingress
+
+Create the remaining resources in your application namespace:
 
 ```bash
-k apply -f certificate.yaml -n <application namespace>
-k apply -f ingress.yaml -n <application namespace>
+kubectl apply -f certificate.yaml -n <application-namespace>
+kubectl apply -f ingress.yaml -n <application-namespace>
 ```
 
 <br/>
 
 ## Reference
+
 - [Google CloudDNS](https://cert-manager.io/docs/configuration/acme/dns01/google/)
