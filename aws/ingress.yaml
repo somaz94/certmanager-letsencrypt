@@ -20,8 +20,6 @@ spec:
                 port:
                   name: https
   tls:
-  - hosts:
-    - <domain>
-    secretName: <app-name>-tls
-
-
+    - hosts:
+        - <domain>
+      secretName: <app-name>-tls

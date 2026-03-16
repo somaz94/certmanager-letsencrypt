@@ -9,10 +9,10 @@ spec:
     privateKeySecretRef:
       name: route53-access-key
     solvers:
-    - dns01:
-        route53:
-          region: <your-region> # Adjust this according to your AWS region
-          accessKeyID: <aws-access-key> # Avoid hardcoding credentials if possible
-          secretAccessKeySecretRef:
-            name: route53-credentials-secret # secret-name
-            key: secret-access-key
+      - dns01:
+          route53:
+            region: <your-region> # Adjust this according to your AWS region
+            accessKeyID: <aws-access-key> # Avoid hardcoding credentials if possible
+            secretAccessKeySecretRef:
+              name: route53-credentials-secret # secret-name
+              key: secret-access-key

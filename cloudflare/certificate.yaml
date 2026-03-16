@@ -9,7 +9,7 @@ spec:
   renewBefore: 720h # 30d(if use helm chart 720h0m0s)
   commonName: your-domain.com
   dnsNames:
-  - your-domain.com
+    - your-domain.com
   issuerRef:
     name: cloudflare-issuer
     kind: ClusterIssuer

@@ -9,9 +9,9 @@ spec:
     privateKeySecretRef:
       name: clouddns-account-key
     solvers:
-    - dns01:
-        cloudDNS:
-          project: <your-project>
-          serviceAccountSecretRef:
-            name: clouddns-credentials-secret
-            key: key.json
+      - dns01:
+          cloudDNS:
+            project: <your-project>
+            serviceAccountSecretRef:
+              name: clouddns-credentials-secret
+              key: key.json
