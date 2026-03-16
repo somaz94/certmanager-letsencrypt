@@ -1,0 +1,50 @@
+## Cloudflare example values
+
+secret:
+  enabled: true
+  name: cloudflare-api-token-secret
+  namespace: cert-manager
+  stringData:
+    api-token: "<your-cloudflare-api-token>"
+
+clusterIssuer:
+  enabled: true
+  name: cloudflare-issuer
+  email: "<your-email>"
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretRef: cloudflare-issuer-account-key
+  dns01:
+    cloudflare:
+      email: "<your-cloudflare-email>"
+      apiTokenSecretRef:
+        name: cloudflare-api-token-secret
+        key: api-token
+
+certificate:
+  enabled: true
+  name: "<app-name>-certificate"
+  namespace: "<app-namespace>"
+  secretName: "<app-name>-tls"
+  duration: "2160h"
+  renewBefore: "720h"
+  commonName: "your-domain.com"
+  dnsNames:
+    - "your-domain.com"
+
+ingress:
+  enabled: true
+  name: "<ingress-name>"
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: "<domain>"
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: "<app-servicename>"
+          servicePortName: https
+  tls:
+    - hosts:
+        - "<domain>"
+      secretName: "<app-name>-tls"

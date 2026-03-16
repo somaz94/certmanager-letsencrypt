@@ -1,0 +1,51 @@
+## AWS Route53 example values
+
+secret:
+  enabled: true
+  name: route53-credentials-secret
+  namespace: cert-manager
+  stringData:
+    secret-access-key: "<aws-secret-access-key>"
+
+clusterIssuer:
+  enabled: true
+  name: route53-issuer
+  email: "<your-email>"
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretRef: route53-access-key
+  dns01:
+    route53:
+      region: "<your-region>"
+      accessKeyID: "<aws-access-key>"
+      secretAccessKeySecretRef:
+        name: route53-credentials-secret
+        key: secret-access-key
+
+certificate:
+  enabled: true
+  name: "<app-name>-certificate"
+  namespace: "<app-namespace>"
+  secretName: "<app-name>-tls"
+  duration: "2160h"
+  renewBefore: "720h"
+  commonName: "your-domain.com"
+  dnsNames:
+    - "your-domain.com"
+
+ingress:
+  enabled: true
+  name: "<ingress-name>"
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: "<domain>"
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: "<app-servicename>"
+          servicePortName: https
+  tls:
+    - hosts:
+        - "<domain>"
+      secretName: "<app-name>-tls"

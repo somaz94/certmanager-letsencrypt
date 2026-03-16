@@ -1,0 +1,50 @@
+## Google Cloud DNS example values
+
+secret:
+  enabled: true
+  name: clouddns-credentials-secret
+  namespace: cert-manager
+  data:
+    key.json: "<your-base64-encoded-serviceaccount>"
+
+clusterIssuer:
+  enabled: true
+  name: clouddns-issuer
+  email: "<your-email>"
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretRef: clouddns-account-key
+  dns01:
+    cloudDNS:
+      project: "<your-project>"
+      serviceAccountSecretRef:
+        name: clouddns-credentials-secret
+        key: key.json
+
+certificate:
+  enabled: true
+  name: "<app-name>-certificate"
+  namespace: "<app-namespace>"
+  secretName: "<app-name>-tls"
+  duration: "2160h"
+  renewBefore: "720h"
+  commonName: "your-domain.com"
+  dnsNames:
+    - "your-domain.com"
+
+ingress:
+  enabled: true
+  name: "<ingress-name>"
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: "<domain>"
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: "<app-servicename>"
+          servicePortName: https
+  tls:
+    - hosts:
+        - "<domain>"
+      secretName: "<app-name>-tls"

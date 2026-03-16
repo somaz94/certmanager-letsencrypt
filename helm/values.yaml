@@ -1,0 +1,42 @@
+## Default values for certmanager-letsencrypt
+## Override with provider-specific values files:
+##   helm install cert . -f values-aws.yaml
+##   helm install cert . -f values-gcp.yaml
+##   helm install cert . -f values-cloudflare.yaml
+
+nameOverride: ""
+fullnameOverride: ""
+
+secret:
+  enabled: true
+  name: ""
+  namespace: cert-manager
+  stringData: {}
+  data: {}
+
+clusterIssuer:
+  enabled: true
+  name: ""
+  email: ""
+  server: https://acme-v02.api.letsencrypt.org/directory
+  privateKeySecretRef: ""
+  dns01: {}
+
+certificate:
+  enabled: true
+  name: ""
+  namespace: ""
+  secretName: ""
+  duration: "2160h"   # 90d
+  renewBefore: "720h" # 30d
+  commonName: ""
+  dnsNames: []
+
+ingress:
+  enabled: true
+  name: ""
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts: []
+  tls: []

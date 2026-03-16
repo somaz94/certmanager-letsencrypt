@@ -33,6 +33,8 @@ kubectl get po -n cert-manager
 
 ## Usage
 
+### Plain YAML
+
 Each provider directory contains the following template files:
 
 | File | Description |
@@ -43,6 +45,29 @@ Each provider directory contains the following template files:
 | `ingress.yaml` | Ingress with TLS configuration |
 
 Refer to each provider's README for detailed setup instructions.
+
+### Helm Chart
+
+The `helm/` directory provides a reusable Helm chart with provider-specific values files.
+
+```bash
+# AWS Route53
+helm install cert-manager-cert ./helm -f ./helm/values-aws.yaml
+
+# Google Cloud DNS
+helm install cert-manager-cert ./helm -f ./helm/values-gcp.yaml
+
+# Cloudflare
+helm install cert-manager-cert ./helm -f ./helm/values-cloudflare.yaml
+```
+
+You can also override values inline:
+
+```bash
+helm install cert-manager-cert ./helm -f ./helm/values-aws.yaml \
+  --set certificate.commonName=example.com \
+  --set clusterIssuer.email=admin@example.com
+```
 
 <br/>
 
