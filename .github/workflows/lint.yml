@@ -1,0 +1,49 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  yaml-lint:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint
+        run: |
+          yamllint -c .yamllint.yml \
+            aws/ \
+            gcp/ \
+            cloudflare/
+
+  helm-lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Helm lint with AWS values
+        run: helm lint ./helm -f ./helm/values-aws.yaml
+
+      - name: Helm lint with GCP values
+        run: helm lint ./helm -f ./helm/values-gcp.yaml
+
+      - name: Helm lint with Cloudflare values
+        run: helm lint ./helm -f ./helm/values-cloudflare.yaml
+
+      - name: Helm template (dry-run) with AWS values
+        run: helm template test ./helm -f ./helm/values-aws.yaml
