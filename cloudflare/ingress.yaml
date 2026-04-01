@@ -13,7 +13,7 @@ spec:
       http:
         paths:
           - path: /
-            pathType: Prefix
+            pathType: Prefix # Prefix: /foo matches /foo/bar | Exact: /foo only | ImplementationSpecific: ingress controller decides
             backend:
               service:
                 name: <app-servicename>
