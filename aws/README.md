@@ -7,6 +7,10 @@
 Create a Kubernetes Secret with your AWS Secret Access Key:
 
 ```bash
+# Option 1: Apply the manifest (namespace is already defined in the YAML)
+kubectl apply -f route53-credentials-secret.yaml
+
+# Option 2: Create via kubectl command
 kubectl create secret generic route53-credentials-secret \
   --from-literal=secret-access-key=AWS_SECRET_ACCESS_KEY \
   --namespace=cert-manager
@@ -19,7 +23,6 @@ kubectl create secret generic route53-credentials-secret \
 The credentials secret is created in the `cert-manager` namespace. The ClusterIssuer is a cluster-scoped resource and does not belong to any namespace.
 
 ```bash
-kubectl apply -f route53-credentials-secret.yaml -n cert-manager
 kubectl apply -f clusterissuer.yaml
 ```
 

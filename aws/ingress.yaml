@@ -18,7 +18,7 @@ spec:
               service:
                 name: <app-servicename>
                 port:
-                  name: https
+                  name: https # Change to match your service port name (e.g., http, 8080)
   tls:
     - hosts:
         - <domain>

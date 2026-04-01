@@ -66,7 +66,11 @@ certmanager-letsencrypt/
 To fetch the latest version, consult the [official cert-manager releases](https://github.com/cert-manager/cert-manager/releases).
 
 ```bash
+# Using latest version
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+
+# Or pin to a specific version (recommended for production)
+# kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
 ```
 
 Verify installation:

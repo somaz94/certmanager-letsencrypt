@@ -7,6 +7,10 @@
 Create a Kubernetes Secret with your GCP Service Account key:
 
 ```bash
+# Option 1: Apply the manifest (namespace is already defined in the YAML)
+kubectl apply -f clouddns-credentials-secret.yaml
+
+# Option 2: Create via kubectl command
 kubectl create secret generic clouddns-credentials-secret \
   --from-file=key.json=/path/to/SERVICE_ACCOUNT_KEY.json \
   --namespace=cert-manager
@@ -19,7 +23,6 @@ kubectl create secret generic clouddns-credentials-secret \
 The credentials secret is created in the `cert-manager` namespace. The ClusterIssuer is a cluster-scoped resource and does not belong to any namespace.
 
 ```bash
-kubectl apply -f clouddns-credentials-secret.yaml -n cert-manager
 kubectl apply -f clusterissuer.yaml
 ```
 

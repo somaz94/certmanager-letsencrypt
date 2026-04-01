@@ -47,3 +47,9 @@ jobs:
 
       - name: Helm template (dry-run) with AWS values
         run: helm template test ./helm -f ./helm/values-aws.yaml
+
+      - name: Helm template (dry-run) with GCP values
+        run: helm template test ./helm -f ./helm/values-gcp.yaml
+
+      - name: Helm template (dry-run) with Cloudflare values
+        run: helm template test ./helm -f ./helm/values-cloudflare.yaml
