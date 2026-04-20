@@ -6,6 +6,8 @@
 
 This guide provides steps for installing cert-manager and setting up various DNS providers with Let's Encrypt using DNS-01 challenge.
 
+> **Helm chart users**: the chart previously in `helm/` has moved to **[`somaz94/helm-charts`](https://github.com/somaz94/helm-charts/tree/main/charts/certmanager-letsencrypt)** with multi-issuer / multi-certificate / multi-secret support. Install via `oci://ghcr.io/somaz94/charts/certmanager-letsencrypt` or `https://charts.somaz.blog`. The local `helm/` directory remains for reference only — see [`helm/README.md`](helm/README.md).
+
 <br/>
 
 ## Features
@@ -18,9 +20,10 @@ This guide provides steps for installing cert-manager and setting up various DNS
 
 - DNS-01 challenge support for wildcard certificates
 - Support for multiple DNS providers: AWS Route53, Google Cloud DNS, Cloudflare
-- Plain YAML manifests and Helm chart deployment options
+- Plain YAML manifests for hands-on / GitOps workflows
 - 90-day certificate lifecycle with automatic 30-day renewal
 - ClusterIssuer with ACME Let's Encrypt production endpoint
+- Reusable Helm chart published separately at [`somaz94/helm-charts`](https://github.com/somaz94/helm-charts/tree/main/charts/certmanager-letsencrypt)
 
 <br/>
 
@@ -53,8 +56,8 @@ certmanager-letsencrypt/
 │   ├── clusterissuer.yaml
 │   ├── certificate.yaml
 │   └── ingress.yaml
-└── helm/                   # Helm chart with provider-specific values
-    ├── values-aws.yaml
+└── helm/                   # Legacy Helm chart (deprecated — see helm/README.md)
+    ├── values-aws.yaml     # provider example values still useful as DNS-01 schema reference
     ├── values-gcp.yaml
     └── values-cloudflare.yaml
 ```
@@ -101,26 +104,28 @@ Refer to each provider's README for detailed setup instructions.
 
 ### Helm Chart
 
-The `helm/` directory provides a reusable Helm chart with provider-specific values files.
+> **The chart in `helm/` is deprecated.** Use the centralized version at [`somaz94/helm-charts`](https://github.com/somaz94/helm-charts/tree/main/charts/certmanager-letsencrypt) — published to `https://charts.somaz.blog` (classic Helm repo) and `oci://ghcr.io/somaz94/charts/certmanager-letsencrypt` (OCI registry). The new chart adds multi-issuer / multi-certificate / multi-secret support and a `values.schema.json`.
+
+**Install (new location)**
 
 ```bash
-# AWS Route53
-helm install cert-manager-cert ./helm -f ./helm/values-aws.yaml
+# Recommended: OCI registry (Helm 3.8+)
+helm install cert oci://ghcr.io/somaz94/charts/certmanager-letsencrypt \
+  --version 0.1.0 \
+  --namespace cert-manager \
+  -f my-values.yaml
 
-# Google Cloud DNS
-helm install cert-manager-cert ./helm -f ./helm/values-gcp.yaml
-
-# Cloudflare
-helm install cert-manager-cert ./helm -f ./helm/values-cloudflare.yaml
+# Alternative: classic Helm repo
+helm repo add somaz94 https://charts.somaz.blog
+helm install cert somaz94/certmanager-letsencrypt \
+  --version 0.1.0 \
+  --namespace cert-manager \
+  -f my-values.yaml
 ```
 
-You can also override values inline:
+The new chart is **not a drop-in replacement** — `values.yaml` shape differs. See the new chart's [README](https://github.com/somaz94/helm-charts/blob/main/charts/certmanager-letsencrypt/README.md) and [`helm/README.md`](helm/README.md) for the schema differences and migration notes.
 
-```bash
-helm install cert-manager-cert ./helm -f ./helm/values-aws.yaml \
-  --set certificate.commonName=example.com \
-  --set clusterIssuer.email=admin@example.com
-```
+The legacy `helm/` directory in this repo remains as a reference (its provider-specific `values-*.yaml` files still illustrate DNS-01 solver shapes per provider) but receives no further updates.
 
 <br/>
 
