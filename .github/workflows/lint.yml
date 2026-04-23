@@ -33,23 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v5
-
-      - name: Helm lint with AWS values
-        run: helm lint ./helm -f ./helm/values-aws.yaml
-
-      - name: Helm lint with GCP values
-        run: helm lint ./helm -f ./helm/values-gcp.yaml
-
-      - name: Helm lint with Cloudflare values
-        run: helm lint ./helm -f ./helm/values-cloudflare.yaml
-
-      - name: Helm template (dry-run) with AWS values
-        run: helm template test ./helm -f ./helm/values-aws.yaml
-
-      - name: Helm template (dry-run) with GCP values
-        run: helm template test ./helm -f ./helm/values-gcp.yaml
-
-      - name: Helm template (dry-run) with Cloudflare values
-        run: helm template test ./helm -f ./helm/values-cloudflare.yaml
+      - name: Helm Kustomize Lint
+        uses: somaz94/helm-kustomize-lint-action@v1
+        with:
+          chart_path: ./helm
+          values_files: |
+            helm/values-aws.yaml
+            helm/values-gcp.yaml
+            helm/values-cloudflare.yaml
+          lint_strict: 'false'
+          run_yamllint: 'false'
